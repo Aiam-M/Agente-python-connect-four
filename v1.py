@@ -66,7 +66,7 @@ def agent(observation, configuration):
     def drop_row(c):
         return rows - 1 - fill[c]
 
-    # 1) Vitória imediata.
+    # Vitória imediata.
     for c in valid_order:
         r = drop_row(c)
         grid[r][c] = me
@@ -75,7 +75,7 @@ def agent(observation, configuration):
         if won:
             return c
 
-    # 2) Bloqueio de vitória imediata do adversário.
+    # Bloqueio de vitória imediata do adversário.
     for c in valid_order:
         r = drop_row(c)
         grid[r][c] = opp
@@ -143,7 +143,7 @@ def agent(observation, configuration):
             return 0  # empate
         return best
 
-    # 3) Aprofundamento iterativo até acabar o tempo.
+    # Aprofundamento iterativo até acabar o tempo.
     best_move = valid_order[0]
     max_depth = rows * cols - sum(fill)
     try:
