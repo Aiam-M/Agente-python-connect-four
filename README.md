@@ -1,24 +1,24 @@
 # Agente ConnectX — Trabalho 2 (Engenharia de Software)
 
 Agente para a competição [Connect X do Kaggle](https://www.kaggle.com/competitions/connectx)
-(o "Lig 4" generalizado: tabuleiro `rows × columns`, vence quem alinhar `inarow`
-peças na horizontal, vertical ou diagonal). O agente final (`v3.py`) foi
-submetido e obteve **score 809.0** no leaderboard (98ª posição no momento da
+vence quem alinhar 4
+peças na horizontal, vertical ou diagonal. O agente final (`v3.py`) foi
+submetido e obteve **score 809.3** no leaderboard (98ª posição no momento da
 captura) — ver a pasta [`Provas da entrega/`](Provas%20da%20entrega/).
 
 ---
 
 ## Estrutura do repositório
 
-| Arquivo | Descrição |
-|---|---|
-| `v1.py` | 1ª versão: minimax (negamax) com poda alfa-beta sobre lista de listas. |
-| `v2.py` | 2ª versão: mesmo critério de avaliação, motor de busca reescrito com bitboards, avaliação incremental e tabela de transposição. |
-| `v3.py` | **Versão submetida.** v2 + melhorias de busca (killer moves, gestão de tempo) e de heurística (detecção de ameaças e paridade). |
-| `test_agent.py` | Testes automatizados (`unittest`) das três versões. |
-| `benchmark.py` | Duelos A × B entre agentes, em paralelo, sem depender do `kaggle_environments`. |
-| `teste.py` | Validação com o `kaggle_environments` oficial (autojogo + adversários embutidos). |
-| `Provas da entrega/` | Capturas de tela da submissão, do leaderboard e de partidas no Kaggle. |
+| Arquivo              | Descrição                                                                                                                       |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `v1.py`              | 1ª versão: minimax (negamax) com poda alfa-beta sobre lista de listas.                                                          |
+| `v2.py`              | 2ª versão: mesmo critério de avaliação, motor de busca reescrito com bitboards, avaliação incremental e tabela de transposição. |
+| `v3.py`              | **Versão submetida.** v2 + melhorias de busca (killer moves, gestão de tempo) e de heurística (detecção de ameaças e paridade). |
+| `test_agent.py`      | Testes automatizados (`unittest`) das três versões.                                                                             |
+| `benchmark.py`       | Duelos A × B entre agentes, em paralelo, sem depender do `kaggle_environments`.                                                 |
+| `teste.py`           | Validação com o `kaggle_environments` oficial (autojogo + adversários embutidos).                                               |
+| `Provas da entrega/` | Capturas de tela da submissão, do leaderboard e de partidas no Kaggle.                                                          |
 
 ---
 
@@ -33,7 +33,7 @@ do limite de tempo por jogada (`actTimeout`, 2 s por padrão).
 
 1. **Atalhos táticos:** se existe vitória imediata, joga; senão, se o
    adversário vence no próximo lance, bloqueia.
-2. **Busca:** *negamax* com poda alfa-beta e **aprofundamento iterativo** —
+2. **Busca:** _negamax_ com poda alfa-beta e **aprofundamento iterativo** —
    busca com profundidade 1, 2, 3, … até o tempo acabar, ficando sempre com o
    melhor lance da última iteração completa.
 3. **Ordenação de lances:** colunas centrais primeiro (são estatisticamente
@@ -69,7 +69,7 @@ Tudo da v2, mais:
 
 - **Killer moves:** lances que causaram corte numa mesma altura da árvore são
   tentados cedo em nós irmãos.
-- **Gestão de tempo:** limite *suave* (50 % do `actTimeout`) e *duro* (70 %),
+- **Gestão de tempo:** limite _suave_ (50 % do `actTimeout`) e _duro_ (70 %),
   usado quando a posição é instável (melhor lance mudou ou score caiu entre
   iterações). Se o banco de tempo extra (`remainingOverageTime`) está baixo,
   não usa o limite duro.
@@ -81,7 +81,7 @@ Tudo da v2, mais:
   ameaças em linhas ímpares, o 2 em pares — conceito clássico do Connect 4).
 - **Entradas compactas na tabela de transposição** (um inteiro por posição)
   e **coletor de lixo desligado durante a jogada**, eliminando pausas de
-  >100 ms causadas pela varredura da tabela.
+  > 100 ms causadas pela varredura da tabela.
 - Parâmetros (`V3_PAR`, `V3_THREATS`, `V3_KILLERS`, `V3_SOFT`, `V3_HARD`)
   ajustáveis por variável de ambiente, usados apenas para ablação no
   benchmark; os valores padrão são os da submissão.
@@ -130,7 +130,7 @@ São 29 testes, cobrindo:
   tabuleiros de tamanhos não padrão, perspectiva do jogador 2 e legalidade em
   posições aleatórias.
 - **Bitboards:** detecção de vitória comparada com uma implementação de
-  referência e ausência de *wrap* entre colunas.
+  referência e ausência de _wrap_ entre colunas.
 - **Equivalência da avaliação:** a avaliação incremental da v2 produz o mesmo
   score que a avaliação completa da v1.
 - **Específicos da v2/v3:** determinismo, busca mais profunda que a v1, vitória
@@ -162,7 +162,7 @@ e máximo por jogada e profundidade média da busca. Opções: `--opening-plies`
 
 ### 5. Submissão
 
-Enviar o arquivo `v3.py` na aba *Submit Agent* da competição Connect X no
+Enviar o arquivo `v3.py` na aba _Submit Agent_ da competição Connect X no
 Kaggle (o arquivo é autocontido e expõe `agent` e `act`).
 
 ---
